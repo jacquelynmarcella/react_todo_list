@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Tooltip, OverlayTrigger} from 'react-bootstrap';
 import './App.css';
 
 class App extends Component {
@@ -42,6 +43,9 @@ class App extends Component {
     this.setState({ newItem: event.target.value, error: '' });
   }
   render() {
+    const tooltip = (
+        <Tooltip id="tooltip"><strong>Whoa!</strong> You gonna do a delete</Tooltip>
+      );
     return (
       <div className="App">
         <header className="App-header">
@@ -57,7 +61,9 @@ class App extends Component {
             <input type="text" className="form-control" placeholder="I need to..." onChange={this.newItemChange} value={this.state.newItem} />
           </form>
           <button type="submit" className="btn btn-warning" onClick={this.add}>Add</button>
-          <button className="btn btn-default" onClick={this.clear}>Clear List</button>
+          <OverlayTrigger placement="right" overlay={tooltip}>
+            <button className="btn btn-default" onClick={this.clear}>Clear List</button>
+          </OverlayTrigger>
           {/* Button to clear list */}
         </div>
       </div>
@@ -96,8 +102,8 @@ class ListItem extends Component {
     return (
       <div>
         <li>
-          {this.props.item}
           <button type="button" className="btn btn-default btn-s pull-left" onClick={this.deleteHandler}><span className="glyphicon glyphicon-ok" aria-hidden="true"></span></button>
+          {this.props.item}
         </li>
       </div>
     );
